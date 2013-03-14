@@ -1,0 +1,18 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Type=Application
+Name=Galicaster
+GenericName=Multistream Recorder
+Comment=Galicaster: multistream recorder and player
+Version=1.2.1
+Exec=gnome-session --session=galicaster
+Icon=galicaster
+Terminal=false
+Type=Application
+MimeType=video/x-raw-yuv
+Categories=Gstreamer;Python;GTK;Multistream;AudioVideo;VideoRecorder;VideoPlayer;Audio;Video
+StartupWMClass=Galicaster
+StartupNotify=true
+
+

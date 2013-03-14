@@ -1,0 +1,4 @@
+gnome-settings-daemon &
+echo > /tmp/galicaster.log
+python /usr/share/galicaster/run_galicaster.py 
+killall gnome-keyring-daemon

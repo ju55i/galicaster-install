@@ -1,0 +1,4 @@
+[GNOME Session]
+Name=Galicaster
+RequiredComponents=gnome-settings-daemon;
+DesktopName=Galicaster
