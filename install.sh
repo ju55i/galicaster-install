@@ -22,14 +22,14 @@ apt-get -y install v4l-conf v4l-utils guvcview ivtv-utils
 apt-get -y install dkms
 
 # Install Epiphan Drivers
-dpkg -i files/vga2pci-3.27.7.24-ubuntu-3.5.0-25-generic-x86_64.deb
+dpkg -i files/vga2pci-3.27.7.25-ubuntu-3.5.0-27-generic-x86_64.deb
 echo "options vga2pci v4l2_err_on_nosignal=0" > /etc/modprobe.d/vga2pci.conf
 echo "softdep vga2pci pre: videobuf-core videodev videobuf-vmalloc post:" >> /etc/modprobe.d/vga2pci.conf
 echo "vga2pci" >> /etc/modules
 
 # Install Blackmagic Drivers
 apt-get -y install libqt4-core libqt4-gui libjpeg62 expat
-dpkg -i files/desktopvideo-9.7-amd64.deb
+dpkg -i files/desktopvideo-9.7.1-amd64.deb
 apt-get -f -y install
 
 # Calibrate touchdisplay
@@ -48,6 +48,9 @@ update-grub2
 dpkg -i files/galicaster_1.2.3_all.deb
 cp -f files/conf.ini /etc/galicaster/conf.ini
 
+# Install x11vnc
+apt-get -y install x11vnc
+
 # Add Galicaster user
 adduser --disabled-password --gecos "Galicast" galicast
 cp -f files/.xinitrc /home/galicast
@@ -60,6 +63,7 @@ mkdir -p /media/space
 echo "/dev/sdb1 /media/space ext4 rw 0 0" >> /etc/fstab
 mount /media/space
 chown -R galicast /media/space
+
 
 # Upgrade system
 #apt-get -y update
