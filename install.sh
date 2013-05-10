@@ -47,6 +47,7 @@ update-grub2
 # Install Galicaster
 dpkg -i files/galicaster_1.2.3_all.deb
 cp -f files/conf.ini /etc/galicaster/conf.ini
+cp -f files/jyu.ini /etc/galicaster/profiles/jyu.ini
 
 # Install x11vnc
 apt-get -y install x11vnc
