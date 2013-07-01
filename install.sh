@@ -49,8 +49,8 @@ dpkg -i files/galicaster_1.3.0_all.deb
 cp -f files/conf.ini /etc/galicaster/conf.ini
 cp -f files/jyu.ini /etc/galicaster/profiles/jyu.ini
 
-# Install x11vnc
-apt-get -y install x11vnc
+# Install x11vnc and xrdp
+apt-get -y install x11vnc xrdp
 
 # Add Galicaster user
 adduser --disabled-password --gecos "Galicast" galicast
