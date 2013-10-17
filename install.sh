@@ -73,6 +73,9 @@ echo "/dev/sdb1 /media/space ext4 rw 0 0" >> /etc/fstab
 mount /media/space
 chown -R galicast /media/space
 
+# Restart Galicaster daily
+cp -f files/restart-galicaster /etc/cron.daily
+chmod u+x /etc/cron.daily/restart-galicaster
 
 # Upgrade system
 #apt-get -y update
