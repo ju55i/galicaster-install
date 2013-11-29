@@ -4,7 +4,6 @@
 apt-get -y install openssh-server
 ufw enable
 ufw allow from 130.234.166.192/26 to any app OpenSSH
-ufw allow from 130.234.166.192/26 to any port 3389
 ufw allow from 130.234.246.128/26 to any app OpenSSH
 
 # Remove screensaver
@@ -57,11 +56,9 @@ dpkg -i files/galicaster_1.3.1_all.deb
 cp -f files/conf.ini /etc/galicaster/conf.ini
 cp -f files/jyu.ini /etc/galicaster/profiles/jyu.ini
 
-# Install x11vnc and xrdp
-apt-get -y install x11vnc xrdp
-
 # Add Galicaster user
 adduser --disabled-password --gecos "Galicast" galicast
+adduser -a -G video galicast
 cp -f files/.xinitrc /home/galicast
 cp -f files/.profile /home/galicast
 
@@ -72,10 +69,6 @@ mkdir -p /media/space
 echo "/dev/sdb1 /media/space ext4 rw 0 0" >> /etc/fstab
 mount /media/space
 chown -R galicast /media/space
-
-# Restart Galicaster daily
-cp -f files/restart-galicaster /etc/cron.daily
-chmod u+x /etc/cron.daily/restart-galicaster
 
 # Upgrade system
 #apt-get -y update
