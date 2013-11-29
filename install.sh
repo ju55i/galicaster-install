@@ -5,6 +5,7 @@ apt-get -y install openssh-server
 ufw enable
 ufw allow from 130.234.166.192/26 to any app OpenSSH
 ufw allow from 130.234.246.128/26 to any app OpenSSH
+ufw allow from 130.234.166.192/26 to any port 3389
 
 # Remove screensaver
 apt-get -y remove gnome-screensaver
@@ -69,6 +70,10 @@ mkdir -p /media/space
 echo "/dev/sdb1 /media/space ext4 rw 0 0" >> /etc/fstab
 mount /media/space
 chown -R galicast /media/space
+
+# Restart Galicaster daily
+cp -f files/restart-galicaster /etc/cron.daily
+chmod u+x /etc/cron.daily/restart-galicaster
 
 # Upgrade system
 #apt-get -y update
