@@ -2,7 +2,7 @@
 # Install Galicaster application
 
 - name: Create Galicaster user
-  user: name=galicaster comment=Galicaster uid=1001 groups=video append=yes
+  user: name=galicast comment=Galicaster uid=1001 groups=video append=yes
 
 - name: Download Galicaster
   get_url: url={{ galicaster_url }} dest=/tmp/galicaster.tgz validate_certs=no
@@ -11,4 +11,4 @@
   unarchive: src=/tmp/galicaster.tgz dest=/usr/local copy=no
 
 - name: Chown Galicaster files
-  file: path=/usr/local/galicaster state=directory owner=galicaster group=galicaster recurse=yes
+  file: path=/usr/local/galicaster state=directory owner=galicast group=galicast recurse=yes

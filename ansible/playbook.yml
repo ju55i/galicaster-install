@@ -1,55 +1,15 @@
 ---
+# Main playbook file
+
 - hosts: asennus
   remote_user: root
   vars:
     datapath_url: https://packages.kopla.jyu.fi/tilatal/VisionInstall-7.6.0.124.tar.gz
     blackmagic_url: https://packages.kopla.jyu.fi/tilatal/desktopvideo_10.2a5_amd64.deb 
+    galicaster_url: https://packages.kopla.jyu.fi/tilatal/galicaster-1.4.1-1.8JYU.tar.gz
   tasks:
-    - name: Remove apt packages
-      apt: name={{ item }} state=absent
-      with_items:
-      - gnome-screensaver
-      - puppet-release
-      - puppet
-      - cups
-      - update-manager
-      - deja-dup
-    - name: Install apt packages
-      apt: name={{ item }} state=present
-      with_items:
-      - python 
-      - python-gtk2
-      - python-gst0.10
-      - libgtk2.0-0
-      - libgstreamer0.10-0
-      - gstreamer0.10-ffmpeg
-      - gstreamer0.10-alsa
-      - gstreamer0.10-plugins-bad
-      - gstreamer0.10-plugins-bad-multiverse
-      - gstreamer0.10-plugins-base
-      - gstreamer0.10-plugins-base-apps
-      - gstreamer0.10-plugins-good
-      - gstreamer0.10-plugins-ugly
-      - python-pip
-      - python-setuptools
-      - python-pycurl
-      - v4l-conf
-      - v4l-utils
-      - ivtv-utils
-      - dkms
-      - msgpack-python
-      - supervisor
-      - ntp
-      - x11vnc
-      - xrdp
-      - snmpd
-    - name: Install pip packages
-      pip: name={{ item }} state=present
-      with_items:
-      - icalendar
-      - tzlocal
-      - pika
-      - requests
+    - include: packages.yml
     - include: drivers.yml
-    - name: Create Galicaster user
-      user: name=galicaster comment=Galicaster uid=1001 groups=video append=yes
+    - include: services.yml
+    - include: application.yml
+    - include: mediadisk.yml

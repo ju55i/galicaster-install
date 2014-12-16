@@ -3,14 +3,19 @@
 
 - name: Download Blackmagic driver
   get_url: url={{ blackmagic_url }} dest=/tmp/desktopvideo.deb validate_certs=no
+
 - name: Install Blackmagic driver
   apt: deb=/tmp/desktopvideo.deb
+
 - name: Download Datapath driver
   get_url: url={{ datapath_url }} dest=/tmp/VisionInstall.tgz validate_certs=no
+
 - name: Create a directory for Datapath driver
   file: path=/tmp/datapath state=directory
+
 - name: Extract Datapth driver
-  unarchive: src=/tmp/VisionInstall.tgz dest=/tmp/datapath copy=no creates=yes
+  unarchive: src=/tmp/VisionInstall.tgz dest=/tmp/datapath copy=no
+
 - name: Install Datapath driver
   command: /tmp/datapath/scripts/install.kernel -s
   args:
