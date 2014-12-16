@@ -1,0 +1,61 @@
+---
+- hosts: asennus
+  remote_user: root
+  vars:
+    datapath_url: https://packages.kopla.jyu.fi/tilatal/VisionInstall-7.6.0.124.tar.gz
+    blackmagic_url: https://packages.kopla.jyu.fi/tilatal/desktopvideo_10.2a5_amd64.deb 
+  tasks:
+    - name: Remove apt packages
+      apt: name=gnome-screensaver state=absent
+      apt: name=puppet state=absent
+    - name: Install apt packages
+      apt: name={{ item }} state=present
+      with_items:
+      - python 
+      - python-gtk2
+      - python-gst0.10
+      - libgtk2.0-0
+      - libgstreamer0.10-0
+      - gstreamer0.10-ffmpeg
+      - gstreamer0.10-alsa
+      - gstreamer0.10-plugins-bad
+      - gstreamer0.10-plugins-bad-multiverse
+      - gstreamer0.10-plugins-base
+      - gstreamer0.10-plugins-base-apps
+      - gstreamer0.10-plugins-good
+      - gstreamer0.10-plugins-ugly
+      - python-pip
+      - python-setuptools
+      - python-pycurl
+      - v4l-conf
+      - v4l-utils
+      - ivtv-utils
+      - dkms
+      - msgpack-python
+      - supervisor
+      - ntp
+      - x11vnc
+      - xrdp
+      - snmpd
+    - name: Install icalendar (pip)
+      pip: name={{ item }} state=present
+      with_items:
+      - icalendar
+      - tzlocal
+      - pika
+      - requests
+    - name: Download Blackmagic driver
+      get_url: url={{ blackmagic_url }} dest=/tmp/desktopvideo.deb validate_certs=no
+    - name: Install Blackmagic driver
+      apt: deb=/tmp/desktopvideo.deb
+    - name: Download Datapath driver
+      get_url: url={{ datapath_url }} dest=/tmp/VisionInstall.tgz validate_certs=no
+    - name: Create a directory for Datapath driver
+      file: path=/tmp/datapath state=directory
+    - name: Extract Datapth driver
+      unarchive: src=/tmp/VisionInstall.tgz dest=/tmp/datapath copy=no creates=yes
+    - name: Install Datapath driver
+      command: /tmp/datapath/scripts/install.kernel -s
+      args:
+        chdir: /tmp/datapath 
+        creates: /lib/modules/{{ ansible_kernel }}/extra/rgb133.ko
