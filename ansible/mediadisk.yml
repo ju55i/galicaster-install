@@ -1,0 +1,14 @@
+---
+# Setup media filesystem
+
+- name: Create partition on sdb
+  filesystem: fstype=ext4 dev=/dev/sdb
+
+- name: Create mountpoint for space partition
+  file: path=/media/space state=directory
+
+- name: Mount space partition
+  mount: name=/media/space src=/dev/sdb fstype=ext4 state=mounted
+
+- name: Chown space to galicast
+  file: path=/media/space owner=galicast group=galicast recurse=yes

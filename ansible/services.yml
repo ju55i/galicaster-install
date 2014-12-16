@@ -1,0 +1,7 @@
+---
+# Services for recorder
+
+- name: Enable NTP
+  service: name=ntp state=running enabled=yes
+- name: Enable Supervisor
+  service: name=supervisor state=running enabled=yes
